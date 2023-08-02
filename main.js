@@ -15,6 +15,7 @@ const colorOptions = document.querySelectorAll('.color-option');
 
 const modeBtn = document.querySelector('.mode-btn');
 const clearBtn = document.querySelector('.clear-btn');
+const eraseBtn = document.querySelector('.erase-btn');
 
 let isPainting = false;
 let isFilling = false;
@@ -77,6 +78,7 @@ function onColorClick(event) {
 
 modeBtn.addEventListener('click', onModeClick);
 clearBtn.addEventListener('click', onClearClick);
+eraseBtn.addEventListener('click', onEraseClick);
 
 function onModeClick() {
   if (isFilling) {
@@ -91,4 +93,10 @@ function onModeClick() {
 function onClearClick() {
   ctx.fillStyle = filledColor;
   ctx.fillRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
+}
+
+function onEraseClick() {
+  ctx.strokeStyle = filledColor;
+  isFilling = false;
+  modeBtn.innterHTML = 'Fill';
 }
