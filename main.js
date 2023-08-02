@@ -10,6 +10,10 @@ const lineWidth = document.querySelector('.line-width');
 ctx.lineWidth = lineWidth.value;
 ctx.lineCap = 'round';
 
+const color = document.querySelector('.color');
+const colorOptions = document.querySelectorAll('.color-option');
+
+// eventListenters & functions
 canvas.addEventListener('click', onCanvasClick);
 canvas.addEventListener('mousemove', onMove);
 canvas.addEventListener('mousedown', startPainting);
@@ -50,4 +54,19 @@ lineWidth.addEventListener('change', onLineWidthChange);
 
 function onLineWidthChange(event) {
   ctx.lineWidth = event.target.value;
+}
+
+color.addEventListener('change', onColorChange);
+colorOptions.forEach((color) => color.addEventListener('click', onColorClick));
+
+function onColorChange(event) {
+  ctx.strokeStyle = event.target.value;
+  ctx.fillStyle = event.target.value;
+}
+
+function onColorClick(event) {
+  const colorHex = event.target.dataset.color;
+  ctx.strokeStyle = colorHex;
+  ctx.fillStyle = colorHex;
+  color.value = colorHex;
 }
