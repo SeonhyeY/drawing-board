@@ -18,6 +18,7 @@ const clearBtn = document.querySelector('.clear-btn');
 const eraseBtn = document.querySelector('.erase-btn');
 
 const fileInput = document.querySelector('.image');
+const textInput = document.querySelector('.text');
 
 let isPainting = false;
 let isFilling = false;
@@ -29,6 +30,7 @@ canvas.addEventListener('mousemove', onMove);
 canvas.addEventListener('mousedown', startPainting);
 canvas.addEventListener('mouseup', cancelPainting);
 canvas.addEventListener('mouseleave', cancelPainting);
+canvas.addEventListener('dblclick', onDoubleClick);
 
 function onCanvasClick() {
   if (!isFilling) {
@@ -55,6 +57,18 @@ function startPainting() {
 function cancelPainting() {
   isPainting = false;
   ctx.beginPath();
+}
+
+function onDoubleClick(event) {
+  const text = textInput.value;
+  if (text === '') {
+    return;
+  }
+  ctx.save();
+  ctx.lineWidth = 1;
+  ctx.font = '48px serif';
+  ctx.fillText(text, event.offsetX, event.offsetY);
+  ctx.restore();
 }
 
 lineWidth.addEventListener('change', onLineWidthChange);
