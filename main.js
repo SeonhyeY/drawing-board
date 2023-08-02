@@ -17,6 +17,8 @@ const modeBtn = document.querySelector('.mode-btn');
 const clearBtn = document.querySelector('.clear-btn');
 const eraseBtn = document.querySelector('.erase-btn');
 
+const fileInput = document.querySelector('.image');
+
 let isPainting = false;
 let isFilling = false;
 let filledColor = 'white';
@@ -79,6 +81,7 @@ function onColorClick(event) {
 modeBtn.addEventListener('click', onModeClick);
 clearBtn.addEventListener('click', onClearClick);
 eraseBtn.addEventListener('click', onEraseClick);
+fileInput.addEventListener('change', onFileChange);
 
 function onModeClick() {
   if (isFilling) {
@@ -99,4 +102,17 @@ function onEraseClick() {
   ctx.strokeStyle = filledColor;
   isFilling = false;
   modeBtn.innterHTML = 'Fill';
+}
+
+function onFileChange(event) {
+  const file = event.target.files[0];
+  const url = URL.createObjectURL(file);
+  const image = new Image();
+  image.src = url;
+  image.onload = function () {
+    ctx.fillStyle = 'white';
+    ctx.fillRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
+    ctx.drawImage(image, 0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
+    fileInput.value = null;
+  };
 }
