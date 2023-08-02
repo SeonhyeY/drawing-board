@@ -14,9 +14,11 @@ const color = document.querySelector('.color');
 const colorOptions = document.querySelectorAll('.color-option');
 
 const modeBtn = document.querySelector('.mode-btn');
+const clearBtn = document.querySelector('.clear-btn');
 
 let isPainting = false;
 let isFilling = false;
+let filledColor = 'white';
 
 // eventListenters & functions
 canvas.addEventListener('click', onCanvasClick);
@@ -74,6 +76,7 @@ function onColorClick(event) {
 }
 
 modeBtn.addEventListener('click', onModeClick);
+clearBtn.addEventListener('click', onClearClick);
 
 function onModeClick() {
   if (isFilling) {
@@ -83,4 +86,9 @@ function onModeClick() {
     isFilling = true;
     modeBtn.innerHTML = '🖌️ To Draw';
   }
+}
+
+function onClearClick() {
+  ctx.fillStyle = filledColor;
+  ctx.fillRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
 }
