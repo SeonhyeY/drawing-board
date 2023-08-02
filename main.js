@@ -13,15 +13,17 @@ ctx.lineCap = 'round';
 const color = document.querySelector('.color');
 const colorOptions = document.querySelectorAll('.color-option');
 
+const modeBtn = document.querySelector('.mode-btn');
+
+let isPainting = false;
+let isFilling = false;
+
 // eventListenters & functions
 canvas.addEventListener('click', onCanvasClick);
 canvas.addEventListener('mousemove', onMove);
 canvas.addEventListener('mousedown', startPainting);
 canvas.addEventListener('mouseup', cancelPainting);
 canvas.addEventListener('mouseleave', cancelPainting);
-
-let isPainting = false;
-let isFilling = false;
 
 function onCanvasClick() {
   if (!isFilling) {
@@ -69,4 +71,16 @@ function onColorClick(event) {
   ctx.strokeStyle = colorHex;
   ctx.fillStyle = colorHex;
   color.value = colorHex;
+}
+
+modeBtn.addEventListener('click', onModeClick);
+
+function onModeClick() {
+  if (isFilling) {
+    isFilling = false;
+    modeBtn.innerHTML = '🎨 Change BG Color';
+  } else {
+    isFilling = true;
+    modeBtn.innerHTML = '🖌️ To Draw';
+  }
 }
