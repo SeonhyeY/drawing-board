@@ -16,6 +16,7 @@ const colorOptions = document.querySelectorAll('.color-option');
 const modeBtn = document.querySelector('.mode-btn');
 const clearBtn = document.querySelector('.clear-btn');
 const eraseBtn = document.querySelector('.erase-btn');
+const saveBtn = document.querySelector('.save-btn');
 
 const fileInput = document.querySelector('.image');
 const textInput = document.querySelector('.text');
@@ -96,6 +97,7 @@ modeBtn.addEventListener('click', onModeClick);
 clearBtn.addEventListener('click', onClearClick);
 eraseBtn.addEventListener('click', onEraseClick);
 fileInput.addEventListener('change', onFileChange);
+saveBtn.addEventListener('click', onSaveClick);
 
 function onModeClick() {
   if (isFilling) {
@@ -129,4 +131,12 @@ function onFileChange(event) {
     ctx.drawImage(image, 0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
     fileInput.value = null;
   };
+}
+
+function onSaveClick(event) {
+  const url = canvas.toDataURL();
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = 'myDrawing.png';
+  a.click();
 }
