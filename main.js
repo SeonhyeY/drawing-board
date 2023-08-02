@@ -6,6 +6,10 @@ const CANVAS_HEIGHT = 800;
 canvas.width = CANVAS_WIDTH;
 canvas.height = CANVAS_HEIGHT;
 
+const lineWidth = document.querySelector('.line-width');
+ctx.lineWidth = lineWidth.value;
+ctx.lineCap = 'round';
+
 canvas.addEventListener('click', onCanvasClick);
 canvas.addEventListener('mousemove', onMove);
 canvas.addEventListener('mousedown', startPainting);
@@ -40,4 +44,10 @@ function startPainting() {
 function cancelPainting() {
   isPainting = false;
   ctx.beginPath();
+}
+
+lineWidth.addEventListener('change', onLineWidthChange);
+
+function onLineWidthChange(event) {
+  ctx.lineWidth = event.target.value;
 }
